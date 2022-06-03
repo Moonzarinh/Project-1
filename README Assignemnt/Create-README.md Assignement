@@ -89,7 +89,7 @@ The following screenshot displays the result of running `docker ps` after succes
 ### Target Machines & Beats
 This ELK server is configured to monitor the following machines:
 - Web1 : 10.0.0.5
-Web2 : 10.0.0.6
+-Web2 : 10.0.0.6
 
 We have installed the following Beats on these machines:
 - ELK Server, Web1 and Web2
@@ -97,8 +97,7 @@ We have installed the following Beats on these machines:
 
 These Beats allow us to collect the following information from each machine:
 - _TODO: In 1-2 sentences, explain what kind of data each beat collects, and provide 1 example of what you expect to see. E.g., `Winlogbeat` collects Windows logs, which we use to track user logon events, etc
-The filebeat has log events
-The Metricbeat has metric and system statistics
+- The filebeat has log events, which is a lightweight shipper for forwarding and centralizing log data.The Metricbeat has metric and system statistics which helps you monitor your servers by collecting metrics from the system and services running on the server, such as: Apache.
 
 ### Using the Playbook
 In order to use the playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned: 
@@ -126,3 +125,13 @@ Test Kibana on localhost: sysadmin@10.1.0.4: curl localhost:5601/app/kibana
 
 _As a **Bonus**, provide the specific commands the user will need to run to download the playbook, update the files, etc._
 
+On the Jump box run the command to get the playbook: curl https://github.com/benjhaddock/CyberSecurityP1/blob/main/Ansible/elk_install.yml > /etc/ansible/roles/elk_install.yml
+
+Edit the hosts file in /etc/ansible and add the details from the screenshot and update your ip addresses
+
+To run the Playbook: ansible-playbook /etc/ansible/roles/elk_install.yml
+
+Installing Filebeats:
+
+Download the playbook with the command: curl https://github.com/benjhaddock/CyberSecurityP1/blob/main/Ansible/filebeat_playbook.yml > /etc/ansible/roles/filebeak_playbook.yml
+Run the playbook with: ansible-playbook /etc/ansible/roles/filebeat_playbook.yml
