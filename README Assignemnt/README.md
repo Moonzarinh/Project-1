@@ -25,8 +25,7 @@ The main purpose of this network is to expose a load-balanced and monitored inst
 
 Load balancing ensures that the application will be highly available, in addition to restricting traffic to the network.
 What aspect of security do load balancers protect? What is the advantage of a jump box?
-Load Balancers protect web-security, web-traffic and availability. Jump Box is like automation and access control. 
-
+Load Balancers protect web-security, web-traffic and availability. Jump Box is like automation and access control. The advantage of a Jumpbox is to restrict access and acts as a gateway for ssh connections in the live enviornment.
 Integrating an ELK server allows users to easily monitor the vulnerable VMs for changes to the data and system logs.
 - What does Filebeat watch for? Filebeat monitors the log files or locations that you specify, collects log events, and forwards them either to Elasticsearch or Logstash for indexing.
 - What does Metricbeat record? They take metrics and statistics that collects and ships them to the output that specify such as Elasticsearch or Logstash.
@@ -50,25 +49,24 @@ _Note: Use the [Markdown Table Generator](http://www.tablesgenerator.com/markdow
 
 The machines on the internal network are not exposed to the public Internet. 
 
-Only the ElK machine can accept connections from the Internet. Access to this machine is only allowed from the following IP addresses:
-- Workstation Public IP through TCP 5601.
+Only the load Balancer machine can accept connections from the Internet. Access to this machine is only allowed from the following IP addresses:
+- Workstation Public IP through Port 80 TCP over HTTP
 
 
-Machines within the network can only be accessed by Workstation and Jump-Box-Provisioner.
-- Which machine did you allow to access your ELK VM? What was its IP address?
+Machines within the network can only be accessed by Ansible Container via the JumpBox using Port 22.
+Jump Box IP 10.0.0.4- Which machine did you allow to access your ELK VM? What was its IP address?
 Jump-Box-Provisioner IP : 10.0.0.4 via SSH port 22
-Workstation Public IP via port TCP 5601
+
 
 A summary of the access policies in place can be found in the table below.
 
 | Name     | Publicly Accessible | Allowed IP Addresses |
 |----------|---------------------|----------------------|
-| Jump Box | No                  | Workstation Public IP on SSH 22
-| WEB 1    | NO                  |10.0.0.1 on SSH 22
-| WEB 2    | NO                  |10.0.0.1 on SSH 22
-| WeB 3    | NO                  |10.0.0.1 on SSH 22
-| ELK      | NO                  |Workstation Pub IP using TCP 5601
-|LoadBalan | NO                  |Workstation Public IP on HTTP 80
+| Jump Box | No                  |10.0.0.1
+| WEB 1    | YES                 |10.0.0.5
+| WEB 2    | YES                 |10.0.0.6
+| WeB 3    | YES                 |10.0.0.7
+| ELK      | NO                  |10.2.0.4
 
 
 ### Elk Configuration
@@ -78,7 +76,10 @@ Ansible was used to automate configuration of the ELK machine. No configuration 
 No special coding skills are necessary to use Ansible's playbooks. 
 
 The playbook implements the following tasks:
-
+- checks and installs python2-pip
+- checks and installs Docker Module (python)
+- Increase virtual memory
+- checks and installs Docker.io
 In 3-5 bullets, explain the steps of the ELK installation play. E.g., install Docker; download image; etc._
 - Making a azure virtual machine VM named " ELK " 
 - Add an [elk] group to your Ansible VM's hosts file by following the steps below on the command line
@@ -94,9 +95,9 @@ The following screenshot displays the result of running `docker ps` after succes
 This ELK server is configured to monitor the following machines:
 - Web1 : 10.0.0.5
 -Web2 : 10.0.0.6
+- Web 3 : 10.0.0.7
 
 We have installed the following Beats on these machines:
-- ELK Server, Web1 and Web2
 - The ELK Stack Installed are: FileBeat and MetricBeat
 
 These Beats allow us to collect the following information from each machine:
@@ -106,10 +107,17 @@ These Beats allow us to collect the following information from each machine:
 ### Using the Playbook
 In order to use the playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned: 
 
-SSH into the control node and follow the steps below:
-- Copy the '/etc/ansible/files/filebeat-config.yml' file to '/etc/ansible/files/filebeat-playbook.yml'.
-- Update the filebeat-playbook.yml file to include installer
-- Run the playbook, and navigate to filebeat to check that the installation worked as expected.
+configELK.yml is the ansible-playbook copied from install-elk.yml
+
+curl https://columbia.bootcampcontent.com/columbia-bootcamp/CU-VIRT-CYBER-PT-02-2022-U-LOL/-/raw/main/13-ELK-Stack-Project/Activities/Stu_Day_1/Unsolved/Resources/install-elk.yml > configELK.yml
+
+Updated the hosts file to include the ELK-VM under the category elk
+
+nano /etc/ansible/hosts add [elk] and 10.2.0.4
+
+Run the playbook, and navigate to 20.242.81.178:5601 to check that the installation worked as expected.
+
+On CLI local host (if unix-based) open 20.242.81.178:5601
 
 Answer the following questions to fill in the blanks:_
 - Which file is the playbook? Where do you copy it?
