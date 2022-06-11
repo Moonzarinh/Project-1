@@ -1,0 +1,10 @@
+root@0f4534b7fb1a:/etc/ansible# cat something.yml
+---
+- name: Restart metricbeat
+  hosts: webservers
+  become: true
+  tasks:
+
+  - name: Stop metricbeat service
+    command: systemctl stop metricbeat
+root@0f4534b7fb1a:/etc/ansible# 
