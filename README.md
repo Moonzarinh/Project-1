@@ -4,7 +4,7 @@ The files in this repository were used to configure the network depicted below.
 
 ![TODO: Update the path with the name of your diagram](Images/diagram_filename.png)
 
-[Project 1 Network Diagram](https://github.com/Moonzarinh/Project-1/blob/main/Project%201%20Network%20Diagram%20Assignment.png)
+[Project 1 Network Diagram](https://github.com/Moonzarinh/Project-1/blob/main/README%20Assignemnt/Project%201%20Network%20Diagram%20Assignment-1.png)
 
 These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select portions of the yml file may be used to install only certain pieces of it, such as Filebeat.
 
@@ -129,7 +129,7 @@ Test Kibana on localhost: sysadmin@10.1.0.4: curl localhost:5601/app/kibana
 
 _As a **Bonus**, provide the specific commands the user will need to run to download the playbook, update the files, etc._
 
-On the Jump box run the command to get the playbook: curl https://github.com/benjhaddock/CyberSecurityP1/blob/main/Ansible/elk_install.yml > /etc/ansible/roles/elk_install.yml
+On the Jump box run the command to get the playbook: curl /etc/ansible/roles/elk_install.yml
 
 Edit the hosts file in /etc/ansible and add the details from the screenshot and update your ip addresses
 
@@ -137,5 +137,5 @@ To run the Playbook: ansible-playbook /etc/ansible/roles/elk_install.yml
 
 Installing Filebeats:
 
-Download the playbook with the command: curl https://github.com/benjhaddock/CyberSecurityP1/blob/main/Ansible/filebeat_playbook.yml > /etc/ansible/roles/filebeak_playbook.yml
+Download the playbook with the command: curl https://github.com/Moonzarinh/Project-1/blob/main/Ansible/filebeat-playbook.yml > /etc/ansible/roles/filebeak_playbook.yml
 Run the playbook with: ansible-playbook /etc/ansible/roles/filebeat_playbook.yml
